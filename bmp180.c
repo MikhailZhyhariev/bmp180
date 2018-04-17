@@ -79,7 +79,6 @@ int BMP180_readUncompPressure(void) {
 bpm180_temp BMP180_getTemp(void) {
     bmp180_calibration bmp180_calibr = BMP180_getCalibrationData();
     bpm180_temp bmp180_t;
-
     bmp180_t.UT = BMP180_readUncompTemp();
     bmp180_t.X1 = (bmp180_t.UT - bmp180_calibr.AC6) * bmp180_calibr.AC5 / pow(2, 15);
     bmp180_t.X2 = bmp180_calibr.MC * pow(2, 11) / (bmp180_t.X1 + bmp180_calibr.MD);
@@ -122,5 +121,5 @@ bmp180_pressure BMP180_getPressure(void) {
 
 float BMP180_getHeight(void) {
     bmp180_pressure pres_str = BMP180_getPressure();
-    return 44330 * (1 - pow(pres_str.pressure / SEA_LEVEL_PRESSURE, 1 / 5.255));;
+    return 44330 * (1 - pow(pres_str.pressure / SEA_LEVEL_PRESSURE, 1 / 5.255));
 }
