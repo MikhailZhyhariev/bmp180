@@ -55,27 +55,13 @@ typedef struct {
     short MB;
     short MC;
     short MD;
+
+    long B3;
+    unsigned long B4;
+    long B5;
+    long B6;
+    unsigned long B7;
 } bmp180_calibration;
-
-typedef struct {
-    int UT;
-    int X1;
-    int X2;
-    int B5;
-    int temp;
-} bpm180_temp;
-
-typedef struct {
-    int UP;
-    int B3;
-    unsigned int B4;
-    int B6;
-    unsigned int B7;
-    int X1;
-    int X2;
-    int X3;
-    int pressure;
-} bmp180_pressure;
 
 void BMP180_Init(void);
 
@@ -83,19 +69,19 @@ void _BMP180_moveToReg(unsigned char reg);
 
 void BMP180_writeToReg(unsigned char reg, unsigned char value);
 
-char BPM180_readRegValue(unsigned char reg);
+unsigned char BPM180_readRegValue(unsigned char reg);
 
-int BMP180_readNthByteRegValue(unsigned char reg, unsigned char bytes);
+long BMP180_readNthByteFromReg(unsigned char reg, unsigned char bytes);
 
-bmp180_calibration BMP180_getCalibrationData(void);
+void BMP180_getCalibrationData(void);
 
-int BMP180_readUncompTemp(void);
+long BMP180_readUncompTemp(void);
 
-int BMP180_readUncompPressure(void);
+long BMP180_readUncompPressure(void);
 
-bpm180_temp BMP180_getTemp(void);
+long BMP180_getTemp(void);
 
-bmp180_pressure BMP180_getPressure(void);
+long BMP180_getPressure(void);
 
 float BMP180_getHeight(void);
 
