@@ -8,6 +8,23 @@
 
 #include <stdint.h>
 
+// Path to I2C library. You can specify your path.
+#include "twi/i2c.h"
+
+/**
+ * I2C functions name. You can use your own functions.
+ * init     - initializing I2C protocol.
+ * start    - start condition
+ * stop     - stop condition
+ * send     - sends the one-byte value. Takes "unsigned char" value as param.
+ * get      - receives the one-byte value. Pass "1" if it's the last byte
+ */
+#define I2C_init()      (i2c_init())
+#define I2C_start()     (i2c_start_cond())
+#define I2C_stop()      (i2c_stop_cond())
+#define I2C_send(x)     (i2c_send_byte(x))
+#define I2C_get(x)      (i2c_get_byte(x))
+
 // Calibration registers address
 #define AC1_HIGH        0xAA
 #define AC1_LOW         0xAB
@@ -80,13 +97,14 @@
 #define SEA_LEVEL_PRESSURE 101325
 
 // Signed custom variables types
-typedef short s16;
-typedef int32_t s32;
+typedef int8_t      s8;
+typedef int16_t     s16;
+typedef int32_t     s32;
 
 // Unsigned custom variables types
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef uint32_t u32;
+typedef uint8_t     u8;
+typedef uint16_t    u16;
+typedef uint32_t    u32;
 
 // A structure that contains calibration coefficients
 typedef struct {
@@ -178,29 +196,6 @@ s32 BMP180_getPressure(void);
  * Calculating height over a sea level [m]
  * @return  height [m]
  */
-double BMP180_getHeight(void);
-
-
-/**
- * UART FUNCTION
- */
-
-// Sign identifiers
-#define MINUS 33001
-#define PLUS  33002
-
-/**
- * Checks sign of the data. If data is negative, inverts it and transmitting sign identifier
- * @param data
- * @return      positive data
- */
-s32 BMP180_checkSign(s32 data);
-
-/**
- * Transmitting a n-byte data
- * @param data
- * @param bytes - number of bytes of the register
- */
-void BMP180_nthBytesTransmit(s32 data, u8 bytes);
+float BMP180_getHeight(void);
 
 #endif

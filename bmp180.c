@@ -5,8 +5,7 @@
 
 #include <util/delay.h>
 #include <math.h>
-#include <stdint.h>
-#include "twi/i2c.h"
+#include <stdlib.h>
 #include "bmp180.h"
 
 // Global structure than contains calibration coefficients
@@ -17,7 +16,7 @@ bmp180_calibration bmp180;
  */
 void BMP180_Init(void) {
     // Initialise i2c interface
-    i2c_init();
+    I2C_init();
     // Get calibration coefficients
     BMP180_getCalibrationData();
 }
@@ -27,10 +26,10 @@ void BMP180_Init(void) {
  * @param reg register address [hex]
  */
 void _BMP180_moveToReg(u8 reg) {
-    i2c_start_cond();
-    i2c_send_byte(BMP180_WRITE);
-    i2c_send_byte(reg);
-    i2c_stop_cond();
+    I2C_start();
+    I2C_send(BMP180_WRITE);
+    I2C_send(reg);
+    I2C_stop();
 }
 
 /**
@@ -39,11 +38,11 @@ void _BMP180_moveToReg(u8 reg) {
  * @param value - value to write
  */
 void BMP180_writeToReg(u8 reg, u8 value) {
-    i2c_start_cond();
-    i2c_send_byte(BMP180_WRITE);
-    i2c_send_byte(reg);
-    i2c_send_byte(value);
-    i2c_stop_cond();
+    I2C_start();
+    I2C_send(BMP180_WRITE);
+    I2C_send(reg);
+    I2C_send(value);
+    I2C_stop();
 }
 
 /**
@@ -54,10 +53,10 @@ void BMP180_writeToReg(u8 reg, u8 value) {
 u8 BPM180_readRegValue(u8 reg) {
     _BMP180_moveToReg(reg);
 
-    i2c_start_cond();
-    i2c_send_byte(BMP180_READ);
-    u8 byte = i2c_get_byte(1);
-    i2c_stop_cond();
+    I2C_start();
+    I2C_send(BMP180_READ);
+    u8 byte = I2C_get(1);
+    I2C_stop();
 
     return byte;
 }
@@ -132,6 +131,10 @@ s32 BMP180_getTemp(void) {
     u32 X1 = (UT - bmp180.AC6) * bmp180.AC5 / pow(2, 15);
     u32 X2 = bmp180.MC * pow(2, 11) / (X1 + bmp180.MD);
     bmp180.B5 = X1 + X2;
+
+    // s32* result = (s32 *)malloc(sizeof(s32));
+    // *result = (bmp180.B5 + 8) / pow(2, 4) / 10;
+    // return result;
     return (bmp180.B5 + 8) / pow(2, 4) / 10;
 }
 
@@ -170,7 +173,7 @@ s32 BMP180_getPressure(void) {
  * Calculating height over a sea level [m]
  * @return  height [m]
  */
-double BMP180_getHeight(void) {
+float BMP180_getHeight(void) {
     u32 pressure = BMP180_getPressure();
-    return 44330 * (1 - pow((double)pressure / SEA_LEVEL_PRESSURE, (double)1 / 5.255));
+    return 44330 * (1 - pow((float)pressure / SEA_LEVEL_PRESSURE, (float)1 / 5.255));
 }
