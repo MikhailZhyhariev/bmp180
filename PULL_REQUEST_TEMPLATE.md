@@ -5,13 +5,13 @@
 <!-- * user/respository#number -->
 
 ## Todos
-<!-- 
+<!--
 - [ ] Tests
 - [ ] Documentation
 -->
 
 ## Steps to Test or Reproduce
-<!-- 
+<!--
 Outline the steps to test or reproduce the PR here.
 
 ```sh
@@ -20,7 +20,7 @@ git checkout <feature_branch>
 bundle; script/server
 ```
 
-1. 
+1.
 -->
 
 ## Additional Notes

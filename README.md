@@ -59,7 +59,7 @@ typedef uint32_t    u32;
 Data transmit/receive protocol
 ------------------------------
 
-In `telemetry_processor.h` file you can specify the path to the I2C library.
+In `bpm180.h` file you can specify the path to the I2C library.
 
 ```
 // Path to I2C library. You can specify your path.
