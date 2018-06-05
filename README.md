@@ -17,6 +17,7 @@ Initialize and usage
 To initialize, you must use the `BMP180_Init`.
 
 To get temperature value you should use `BMP180_getTemp`.
+
 To get height value you should use `BMP180_getHeight`.
 
 Hardware pressure sampling accuracy modes
