@@ -130,7 +130,7 @@ typedef struct {
 } bmp180_calibration;
 
 /**
- * Initialise and set the settings BMP180
+ * Initialize and set the settings BMP180
  */
 void BMP180_Init(void);
 
@@ -169,13 +169,13 @@ s32 BMP180_readNthByteFromReg(u8 reg, u8 bytes);
 bmp180_calibration BMP180_getCalibrationData(void);
 
 /**
- * Reading two-byte uncompensating temperature value from BMP180
+ * Reading two-byte uncompensated temperature value from BMP180
  * @return  uncompensating temperature value
  */
 s32 BMP180_readUncompTemp(void);
 
 /**
- * Reading three-byte uncompensating pressure value from BMP180
+ * Reading three-byte uncompensated pressure value from BMP180
  * @return  uncompensating pressure value
  */
 s32 BMP180_readUncompPressure(void);

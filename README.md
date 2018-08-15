@@ -11,14 +11,24 @@ Supported devices:
 -   raspberryPi;
 -   etc...
 
+
 Initialize and usage
 --------------------
 
-To initialize, you must use the `BMP180_Init`.
+- `BMP180_Init` - Initialize and set the settings BMP180;
 
-To get temperature value you should use `BMP180_getTemp`.
+- `BMP180_getCalibrationData` - Reading calibration data from EEPROM BMP180;
 
-To get height value you should use `BMP180_getHeight`.
+- `BMP180_readUncompTemp` - Reading two-byte uncompensated temperature value from BMP180;
+
+- `BMP180_readUncompPressure` - Reading three-byte uncompensated pressure value from BMP180;
+
+- `BMP180_getTemp` - Calculating true temperature value [degrees Celsius];
+
+- `BMP180_getPressure` - Calculating true pressure value [Pa];
+
+- `BMP180_getHeight` - Calculating height over a sea level [m].
+
 
 Hardware pressure sampling accuracy modes
 -----------------------------------------
@@ -56,6 +66,7 @@ typedef uint8_t     u8;
 typedef uint16_t    u16;
 typedef uint32_t    u32;
 ```
+
 
 Data transmit/receive protocol
 ------------------------------
