@@ -5,6 +5,8 @@ The BMP180 is the function compatible successor of the BMP085, a new generation 
 
 Here is a small library for work with BMP180.
 
+Star this repository, if it turned out to be useful to you. Thank you :)
+
 Supported devices:
 -   AVR microcontrollers;
 -   orangePi;
